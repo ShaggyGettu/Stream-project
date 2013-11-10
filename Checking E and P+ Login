@@ -1,0 +1,83 @@
+#include<stdio.h>
+#include<stdlib.h>
+bool CheckEmail(char email []);
+bool CheckPass(char Password []);
+void Login(char email[],char Password[]);
+char adressMail[10];
+char adressCountry[10];
+void main()
+{
+	bool flag;
+	char email [30];
+	char Password[18];
+	printf("Give A Email\n");
+	gets(email);
+	printf("Give A Password\n");
+	gets(Password);
+	Login(email,Password);
+	printf("adress Mail:%s\nCountry Address:%s \n",adressMail,adressCountry);
+	system("pause");
+}
+bool CheckEmail(char email [])
+{
+	int i=0,z=0;
+	if(email==NULL)
+		return false;
+	while(*email!='@' && *email!=NULL)
+	{
+		if(!((*email>='A' && *email<='Z') || (*email>='a' && *email<='z') || (*email>='0' && *email<='9'))||(*email=='_'))
+		{
+			return false;
+			printf("wrong\n");
+		}
+		email++;
+		i++;
+	}
+	if(i<6)
+		return false;
+	email++;
+	while(*email!='.' && *email!=NULL)
+	{
+		if(!((*email>='A' && *email<='Z')||(*email>='a' && *email<='z')))
+			return false;
+		adressMail[z]=*email;
+		z++;
+		email++;
+	}
+	if(z<1)
+		return false;
+	email++;
+	z=0;
+	while (*email!=NULL)
+	{
+		if(!((*email>='A' && *email<='Z')||(*email>='a' && *email<='z')||(*email=='.')))
+			return false;
+		*(adressCountry+z)=*email;
+		z++;
+		email++;
+	}
+	if(z<1)
+		return false;
+	return true;
+}
+bool CheckPass(char Password [])
+{
+	int i=0;
+	while(*Password!=NULL)
+	{
+		if(!(*Password>='0' && *Password<='9'))
+			return false;
+		Password++;
+		i++;
+	}
+	if(i<6 && i>14)
+		return false;
+	return true;
+}
+void Login(char email [],char Password[])
+{
+	if(CheckEmail(email) && CheckPass(Password))
+		printf("The Login sucses\n");
+	else
+		printf("Login failed\n");
+}
